@@ -1,4 +1,4 @@
-require_relative "../utility/check"
+require_relative "../utility/test"
 require_relative "Composition"
 
 check_with_error_expected(false){
