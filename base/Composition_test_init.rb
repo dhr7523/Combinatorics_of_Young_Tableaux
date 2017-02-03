@@ -22,6 +22,16 @@ check_with_error_expected(false){
   puts "size : "+ String(composition.size)
 }
 check_with_error_expected(false){
+  p composition = Composition.new([3,0])
+  composition.print_diagram
+  puts "size : "+ String(composition.size)
+}
+check_with_error_expected(false){
+  p composition = Composition.new([3,nil])
+  composition.print_diagram
+  puts "size : "+ String(composition.size)
+}
+check_with_error_expected(false){
   p composition = Composition.new([1,nil,3])
   composition.print_diagram
   puts "size : "+ String(composition.size)
