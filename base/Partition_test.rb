@@ -6,6 +6,15 @@ class Tester < Test::Unit::TestCase
     assert_equal Partition.new([]), Partition.new([]).transpose
     assert_equal Partition.new([1]), Partition.new([1]).transpose
     assert_equal Partition.new([4,4,3,1,1]), Partition.new([5,3,3,2]).transpose
+    assert_equal Partition,Partition.new([5,3,3,2]).transpose.class
+  end
+  def test_addition
+    assert_equal [6,4,2].to_partition,[3,2,1].to_partition + [3,2,1].to_partition
+    assert_equal Partition,([3,2,1].to_partition + [3,2,1].to_partition).class
+  end
+  def test_concat
+    assert_equal [3,3,2,2,1,1].to_partition,[3,2,1].to_partition.concat([3,2,1].to_partition)
+    assert_equal Partition,[3,2,1].to_partition.concat([3,2,1].to_partition).class
   end
   def test_set
     assert_equal [[].to_partition], Partition.set(0)

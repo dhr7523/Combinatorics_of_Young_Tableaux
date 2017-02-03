@@ -29,6 +29,14 @@ class Partition < Composition
 		return Partition.new(temp)
 	end
 
+	def + (other)
+		return super(other).to_partition
+	end
+
+	def concat(other)
+		return super(other).sort{|a, b| b <=> a }.to_partition
+	end
+
 	def outer_corners_indices
 		temp = [0]
 		if self.length != 0

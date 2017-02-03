@@ -5,6 +5,8 @@
 * Composition
 	* initialize
 	* size
+	* +(other)
+	* concat(other)
 	* print_diagram
 
 # Partition.rb
@@ -16,6 +18,8 @@ reqire Composition
 * Partition < Composition
 	* initialize
 	* transpose
+	* +(other)
+	* concat(other)
 	* outer_corners_indices
 	* Part.set(n)
 	* set_plus_horizontal_strip_of_size(k)

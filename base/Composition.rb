@@ -28,6 +28,26 @@ class Composition < Array
 		return sum
 	end
 
+	def + (other)
+		temp=[]
+		for i in 0...[self.length,other.length].max
+			if self[i]
+				if other[i]
+					temp << self[i]+other[i]
+				else
+					temp << self[i]
+				end
+			else
+				temp << other[i]
+			end
+		end
+		return temp.to_composition
+	end
+
+	def concat (other)
+		return super(other).to_composition
+	end
+
 	def print_diagram
 		if self.empty?
 			print "φ\n"
