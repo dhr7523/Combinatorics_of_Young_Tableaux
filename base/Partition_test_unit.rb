@@ -27,7 +27,6 @@ class Tester < Test::Unit::TestCase
     assert_equal [0,1], [1].to_partition.outer_corners_indices
     assert_equal [0,2,4], [4,4,2,2].to_partition.outer_corners_indices
   end
-
   def test_set_plus_horizontal_strip_of_size
     assert_equal [[3].to_partition], [].to_partition.set_plus_horizontal_strip_of_size(3)
     assert_equal [
