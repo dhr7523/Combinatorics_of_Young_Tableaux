@@ -1,6 +1,6 @@
 # Composition.rb
 * Array
- 	* to_composition
+	* to_composition
 
 * Composition
 	* initialize

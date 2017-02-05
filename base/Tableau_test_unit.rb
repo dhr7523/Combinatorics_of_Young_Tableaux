@@ -55,13 +55,13 @@ class Tester < Test::Unit::TestCase
 		print "\n"
 		[[1,1,1,2,2],[2,2,3,3],[3,4,4]].to_tableau.print_diagram
 	end
-  def test_set
-    assert_equal [[].to_tableau],Tableau.set([],[])
-    assert_equal [[[1]].to_tableau],Tableau.set([1],[1])
-    assert_equal [
-      [[1,1,2,2],[3,3]].to_tableau,
-      [[1,1,2,3],[2,3]].to_tableau,
-      [[1,1,3,3],[2,2]].to_tableau,
-      ],Tableau.set([4,2],[2,2,2])
-  end
+	def test_set
+		assert_equal [[].to_tableau],Tableau.set([],[])
+		assert_equal [[[1]].to_tableau],Tableau.set([1],[1])
+		assert_equal [
+			[[1,1,2,2],[3,3]].to_tableau,
+			[[1,1,2,3],[2,3]].to_tableau,
+			[[1,1,3,3],[2,2]].to_tableau,
+			],Tableau.set([4,2],[2,2,2])
+	end
 end
