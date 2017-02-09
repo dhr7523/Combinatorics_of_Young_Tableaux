@@ -8,7 +8,6 @@ Ruby codes for combinatorial calculation mainly related to Young diagram and You
 * Partition
 * Word
 * Tableau
-* Polynomial
 
 ## Operation
 "operation" directory contains following combinatorial operations.
@@ -20,4 +19,5 @@ Ruby codes for combinatorial calculation mainly related to Young diagram and You
 
 ## Statistics
 "statistics" directory contains some codes for combinatorial statistics, inversion, charge, etc.  
-Kostka.rb calculates Kostka polynomials using Lascoux-Schützenberger formular.
+Kostka.rb calculates Kostka polynomials using Lascoux-Schützenberger formular.  
+Also includes Polynomial class for the use of generating functions.

@@ -1,5 +1,5 @@
 require_relative "Statistic"
-require_relative "../base/Polynomial"
+require_relative "Polynomial"
 
 module Kostka
 	def polynomial(shape,weight)
