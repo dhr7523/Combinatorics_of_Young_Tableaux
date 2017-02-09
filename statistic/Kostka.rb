@@ -1,4 +1,5 @@
 require_relative "Statistic"
+require_relative "../base/Polynomial"
 
 def Kostka(shape,weight)
 	temp=[0]
@@ -10,7 +11,7 @@ def Kostka(shape,weight)
 			temp[c]=1
 		end
 	}
-	return temp.map {|e| e ? e:0}
+	return temp.to_polynomial
 end
 
 def modified_Kostka(shape,weight)
@@ -23,7 +24,7 @@ def modified_Kostka(shape,weight)
 			temp[c]=1
 		end
 	}
-	return temp.map {|e| e ? e:0}
+	return temp.to_polynomial
 end
 
 
