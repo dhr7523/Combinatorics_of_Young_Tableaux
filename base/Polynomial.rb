@@ -73,50 +73,61 @@ class Polynomial < Array
 		return temp.to_polynomial
 	end
 
-	def print_(variables,log=[])
-		raise "number of variables is too small." unless @number_of_variables<=variables.size
+	def to_array(log=[])
+		temp=[]
 		for i in 0...self.length do
 			if self[i]
 				log_=log.dup
 				log_.unshift(i)
 				if self[i].instance_of?(Polynomial) then
-					self[i].print_(variables,log_)
-				else
-
-#					p [self[i],log_]
-					if self[i]!=0
-						if self[i]>1
-							print "+"
-						end
-						if log_.all?{|e| e==0}
-							if self[i]==1
-								print "+",self[i].to_s
-							else self[i]==-1
-								print self[i].to_s
-							end
-						elsif self[i]==1
-							print "+"
-						elsif self[i]==-1
-							print "-"
-						else
-							print self[i].to_s
-						end
-
-						for i in 0...log_.length
-							if log_[i]>0
-								print variables[i]
-								if log_[i]>1
-									print "^"+log_[i].to_s
-								end
-							end
-						end
-						print " "
-					end
-
+					temp.concat(self[i].to_array(log_))
+				elsif self[i] and self[i]!=0
+					temp << [self[i],log_]
 				end
 			end
 		end
-		print "\n" if log.empty?
+		return temp
+	end
+
+	def degree_of_leading_terms
+		arr= self.to_array
+		max_deg=arr.max{|a,b| a[1].inject(:+) <=> b[1].inject(:+)}[1].inject(:+)
+		return arr.select{|a| a[1].inject(:+)==max_deg}.map{|a| a[1]}
+	end
+	def to_string(variables)
+		raise "number of variables is too small." unless @number_of_variables<=variables.size
+		temp=""
+		arr=self.to_array
+		for i in 0...arr.length
+
+			temp += " "
+
+			if i!=0 and arr[i][0]>0
+				temp += "+"
+			elsif arr[i][0]<0
+				temp += "-"
+			end
+
+			if arr[i][1].all?{|e| e==0}
+				if arr[i][0]==1 or arr[i][0]==-1
+					temp +=arr[i][0].to_s
+				end
+			elsif arr[i][0]==1
+			elsif arr[i][0]==-1
+			else
+				temp += arr[i][0].abs.to_s
+			end
+
+			for j in 0...arr[i][1].length
+				if arr[i][1][j]>0
+					temp += variables[j]
+					if arr[i][1][j]>1
+						temp += "^"+arr[i][1][j].to_s
+					end
+				end
+			end
+		end
+		return temp
 	end
 end
 
