@@ -33,6 +33,8 @@ class Tester < Test::Unit::TestCase
 		assert_equal [[2,0],[1,1],[0,2]], [[1,1,1],[0,1],[1]].to_polynomial.degree_of_leading_terms
 	end
 	def test_to_string
+		assert_equal " 0", [].to_polynomial.to_string(["x"])
+		assert_equal " 1", [1].to_polynomial.to_string(["x"])
 		assert_equal " x +2y", [[nil,1],[2]].to_polynomial.to_string(["x","y"])
 		assert_equal " -Z -Z^3", [0,-1,nil,-1].to_polynomial.to_string(["Z"])
 		assert_equal " 1 +3x^2 +5xy -6xz +11x^2yz", [[[1,0,3],[nil,5]],[[0,-6],[nil,0,11]]].to_polynomial.to_string(["x","y","z"])

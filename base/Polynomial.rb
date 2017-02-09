@@ -127,7 +127,11 @@ class Polynomial < Array
 				end
 			end
 		end
-		return temp
+		if temp==""
+			return " 0"
+		else
+			 return temp
+		end
 	end
 end
 
