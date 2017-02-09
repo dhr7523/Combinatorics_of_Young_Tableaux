@@ -56,3 +56,21 @@ require Word
 records row indices from left to right
 	* is_semistandard?
 	* print_diagram
+
+# Polynomial.rb
+* Array
+	* to_polynomial
+
+* Polynomial  
+	* @number_of_variables
+	* initialize  
+	not for use. Use to_polynomial.
+	* \+ (other)
+	* \* (other)
+	* to_array
+	* degree_of_leading_terms
+	* to_string (variable_strings)
+	* ＝＝＝＝＝以下未実装＝＝＝＝＝
+	* 変数置換
+	* 特殊化（０代入）
+	* より大きな数の変数への埋め込み
