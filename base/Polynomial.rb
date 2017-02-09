@@ -21,12 +21,11 @@ class Polynomial < Array
 		if !self.empty?
 			e=self[self.index{|k| k}]
 		end
+
 		if e.instance_of?(Polynomial)
 			@number_of_variables=e.number_of_variables+1
-		end
-		if e.class == Polynomial
 			self.each{|item|
-				unless item.class==e.class and item.number_of_variables==e.number_of_variables
+				if item and (item.class!=e.class or item.number_of_variables!=e.number_of_variables)
 					raise "different number of variables"
 				end
 			}
