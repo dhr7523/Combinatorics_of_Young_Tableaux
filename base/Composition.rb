@@ -33,12 +33,12 @@ class Composition < Array
 		for i in 0...[self.length,other.length].max
 			if self[i]
 				if other[i]
-					temp << self[i]+other[i]
+					temp[i] = self[i]+other[i]
 				else
-					temp << self[i]
+					temp[i] = self[i]
 				end
 			else
-				temp << other[i]
+				temp[i] = other[i]
 			end
 		end
 		return temp.to_composition
