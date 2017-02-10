@@ -1,5 +1,18 @@
 class Array
 	def to_polynomial
+		lens=self.map{|e| e[1].length}.uniq
+		unless lens.length==1
+			raise "different number of variables. arg:"+self.to_s
+		end
+		temp=[]
+		if lens[0]==0
+			return self[0][0]
+		else
+			self.each{|e|
+				temp[e[1].last]=e.map{|h| [e[0],e[1].first(e[1].length-1)]}.to_polynomial
+			}
+		end
+		return Polynomial.new(temp)
 	end
 end
 
@@ -8,6 +21,8 @@ class Polynomial < Array
 	def initialize(x=0,*y)
 		super(x,*y)
 		@number_of_variables=1
+
+		self << nil if self.empty?
 
 		for i in 0...self.length
 			if self[i] and self[i].is_a?(Array)

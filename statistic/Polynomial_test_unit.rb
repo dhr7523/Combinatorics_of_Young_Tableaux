@@ -2,6 +2,13 @@ require "test/unit"
 require_relative "Polynomial"
 
 class Tester < Test::Unit::TestCase
+	def test_to_polynomial
+		assert_equal Polynomial.new([]), [[0,[0]]].to_polynomial
+		assert_equal Polynomial.new([1,1,2]), [[1,[0]],[1,[1]],[2,[2]]].to_polynomial
+		assert_equal Polynomial.new([[0,1],[2]]), [[1,[1,0]],[2,[0,1]]].to_polynomial
+		assert_equal Polynomial.new([[0,0,1],[0,4],[4]]), [[1,[2,0]],[4,[1,1]],[4,[0,2]]].to_polynomial
+	end
+
 	def test_number_of_variables
 		a=Polynomial.new([])
 		assert_equal 1,a.number_of_variables
