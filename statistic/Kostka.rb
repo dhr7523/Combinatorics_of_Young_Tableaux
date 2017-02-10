@@ -12,7 +12,7 @@ module Kostka
 				temp[c]=1
 			end
 		}
-		return temp.to_polynomial
+		return Polynomial.new(temp)
 	end
 	module_function :polynomial
 
@@ -26,7 +26,7 @@ module Kostka
 				temp[c]=1
 			end
 		}
-		return temp.to_polynomial
+		return Polynomial.new(temp)
 	end
 	module_function :modified
 end

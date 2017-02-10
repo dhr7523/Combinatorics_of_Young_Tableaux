@@ -1,14 +1,5 @@
 class Array
 	def to_polynomial
-		temp=[]
-		self.each{|e|
-			if e.is_a?(Array)
-				temp << e.to_polynomial
-			else
-				temp << e
-			end
-		}
-		return Polynomial.new(temp)
 	end
 end
 
@@ -18,24 +9,20 @@ class Polynomial < Array
 		super(x,*y)
 		@number_of_variables=1
 
-		if !self.empty?
-			e=self[self.index{|k| k}]
+		for i in 0...self.length
+			if self[i] and self[i].is_a?(Array)
+				self[i] = Polynomial.new(self[i])
+				@number_of_variables=self[i].number_of_variables+1
+			end
+		end
+		if @number_of_variables>1
+			self.each{|item|
+				if item and (!item.instance_of?(Polynomial) or item.number_of_variables!=@number_of_variables-1)
+					raise "different number of variables. arg:"+self.to_s
+				end
+			}
 		end
 
-		if e.instance_of?(Polynomial)
-			@number_of_variables=e.number_of_variables+1
-			self.each{|item|
-				if item and (item.class!=e.class or item.number_of_variables!=e.number_of_variables)
-					raise "different number of variables"
-				end
-			}
-		else
-			self.each{|item|
-				if item and item.class!=e.class
-					raise "different class"
-				end
-			}
-		end
 	end
 
 	def + (other)
@@ -52,7 +39,7 @@ class Polynomial < Array
 				temp[i] = other[i]
 			end
 		end
-		return temp.to_polynomial
+		return Polynomial.new(temp)
 	end
 
 	def * (other)
@@ -69,7 +56,7 @@ class Polynomial < Array
 				end
 			end
 		end
-		return temp.to_polynomial
+		return Polynomial.new(temp)
 	end
 
 	def to_array(log=[])
