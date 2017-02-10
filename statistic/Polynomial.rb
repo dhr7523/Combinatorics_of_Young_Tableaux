@@ -13,6 +13,8 @@ class Polynomial < Array
 			if self[i] and self[i].is_a?(Array)
 				self[i] = Polynomial.new(self[i])
 				@number_of_variables=self[i].number_of_variables+1
+			elsif self[i]==0
+				self[i]=nil
 			end
 		end
 		if @number_of_variables>1
@@ -37,6 +39,23 @@ class Polynomial < Array
 				end
 			else
 				temp[i] = other[i]
+			end
+		end
+		return Polynomial.new(temp)
+	end
+
+	def - (other)
+		raise "different number of variables." unless @number_of_variables==other.number_of_variables
+		temp=[]
+		for i in 0...[self.length,other.length].max
+			if self[i]
+				if other[i]
+					temp[i] = self[i]-other[i]
+				else
+					temp[i] = self[i]
+				end
+			else
+				temp[i] = -other[i]
 			end
 		end
 		return Polynomial.new(temp)

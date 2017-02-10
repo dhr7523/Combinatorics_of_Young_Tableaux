@@ -13,7 +13,9 @@ class Tester < Test::Unit::TestCase
 	def test_addition
 		assert_equal Polynomial.new([2,2,1]),Polynomial.new([1,1]) + Polynomial.new([1,1,1])
 	end
-
+	def test_subtraction
+		assert_equal Polynomial.new([0,0,-1]),Polynomial.new([1,1]) - Polynomial.new([1,1,1])
+	end
 	def test_multiplication
 		assert_equal Polynomial.new([]),Polynomial.new([]) * Polynomial.new([])
 		assert_equal Polynomial.new([[]]),Polynomial.new([[]]) * Polynomial.new([[]])
