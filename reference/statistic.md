@@ -21,13 +21,13 @@ require polynomial
 * Polynomial  
 	* @number_of_variables
 	* initialize  
-	not for use. Use to_polynomial.
 	* \+ (other)
+	* \- (other)
 	* \* (other)
 	* to_array
+	* permute_variables (permutation_array)
 	* degree_of_leading_terms
 	* to_string (variable_strings)
 	* ＝＝＝＝＝以下未実装＝＝＝＝＝
-	* 変数置換
 	* 特殊化（０代入）
 	* より大きな数の変数への埋め込み

@@ -8,8 +8,8 @@ class Array
 		if lens[0]==0
 			return self[0][0]
 		else
-			self.each{|e|
-				temp[e[1].last]=e.map{|h| [e[0],e[1].first(e[1].length-1)]}.to_polynomial
+			self.map{|term| term[1].last}.uniq.each{|d|
+				temp[d]=self.select{|term|term[1].last==d}.map{|term| [term[0],term[1].first(term[1].length-1)]}.to_polynomial
 			}
 		end
 		return Polynomial.new(temp)
@@ -109,13 +109,32 @@ class Polynomial < Array
 		return temp
 	end
 
+	def permute_variables(perm)
+		unless perm.sort==Array.new(@number_of_variables){|i| i}
+			raise "incrrect permutation:"+ perm.to_s
+		end
+		arr=self.to_array
+		for i in 0...arr.length
+			term=Array.new(@number_of_variables){|g| arr[i][1][perm.index(g)]}
+			arr[i]=[arr[i][0],term]
+		end
+		return arr.to_polynomial
+	end
+
 	def degree_of_leading_terms
 		arr= self.to_array
 		max_deg=arr.max{|a,b| a[1].inject(:+) <=> b[1].inject(:+)}[1].inject(:+)
 		return arr.select{|a| a[1].inject(:+)==max_deg}.map{|a| a[1]}
 	end
 	def to_string(variables)
-		raise "number of variables is too small." unless @number_of_variables<=variables.size
+		if variables.is_a?(Array)
+			if @number_of_variables>variables.size
+				raise "number of variables is too small."
+			end
+		else
+			variables=Array.new(@number_of_variables){|h| variables+"_"+(h+1).to_s}
+		end
+
 		temp=""
 		arr=self.to_array
 		for i in 0...arr.length

@@ -7,6 +7,7 @@ class Tester < Test::Unit::TestCase
 		assert_equal Polynomial.new([1,1,2]), [[1,[0]],[1,[1]],[2,[2]]].to_polynomial
 		assert_equal Polynomial.new([[0,1],[2]]), [[1,[1,0]],[2,[0,1]]].to_polynomial
 		assert_equal Polynomial.new([[0,0,1],[0,4],[4]]), [[1,[2,0]],[4,[1,1]],[4,[0,2]]].to_polynomial
+		assert_equal Polynomial.new([[[0,1],[2]],[[3]]]), [[1,[1,0,0]],[2,[0,1,0]],[3,[0,0,1]]].to_polynomial
 	end
 
 	def test_number_of_variables
@@ -36,6 +37,14 @@ class Tester < Test::Unit::TestCase
 	def test_to_array
 		assert_equal [[1,[1,0]],[2,[0,1]]], Polynomial.new([[0,1],[2]]).to_array
 	end
+	def test_permute_variables
+		assert_equal " x^3", Polynomial.new([[[0,0,0,1]]]).permute_variables([0,1,2]).to_string(["x","y","z"])
+		assert_equal " y^3", Polynomial.new([[[0,0,0,1]]]).permute_variables([1,0,2]).to_string(["x","y","z"])
+		assert_equal " z^3", Polynomial.new([[[0,0,0,1]]]).permute_variables([2,1,0]).to_string(["x","y","z"])
+		poly=Polynomial.new([[[1,1],[2]],[[3]]]) # 1 +x +2y +3z
+		assert_equal " 1 +2x +y +3z", poly.permute_variables([1,0,2]).to_string(["x","y","z"])
+		assert_equal " 1 +3x +y +2z", poly.permute_variables([1,2,0]).to_string(["x","y","z"])
+	end
 	def test_degree_of_leading_terms
 		assert_equal [[2]], Polynomial.new([1,1,1]).degree_of_leading_terms
 		assert_equal [[2,0],[1,1],[0,2]], Polynomial.new([[1,1,1],[0,1],[1]]).degree_of_leading_terms
@@ -47,7 +56,7 @@ class Tester < Test::Unit::TestCase
 		assert_equal " -Z -Z^3", Polynomial.new([0,-1,nil,-1]).to_string(["Z"])
 		assert_equal " 1 +3x^2 +5xy -6xz +11x^2yz", Polynomial.new([[[1,0,3],[nil,5]],[[0,-6],[nil,0,11]]]).to_string(["x","y","z"])
 		assert_equal " x^2 +4xy +4y^2", Polynomial.new([[0,0,1],[0,4],[4]]).to_string(["x","y","z"])
-		assert_equal " a^2 +4ab +4b^2", Polynomial.new([[nil,nil,1],[nil,4],[4]]).to_string(["a","b","c"])
+		assert_equal " @_1^2 +4@_1@_2 +4@_2^2", Polynomial.new([[nil,nil,1],[nil,4],[4]]).to_string("@")
 	end
 end
 
