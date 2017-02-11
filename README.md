@@ -1,5 +1,6 @@
 # Combinatorics_of_Young_Tableaux
 Ruby codes for combinatorial calculation mainly related to Young diagram and Young tableaux.  
+You can load all classes and modules by loader.rb.
 
 ## Base
 "base" directory contains following basic structures.
