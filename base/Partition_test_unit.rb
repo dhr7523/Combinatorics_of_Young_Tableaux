@@ -41,7 +41,16 @@ class Tester < Test::Unit::TestCase
 			[4,4,2].to_partition,
 			[4,4,1,1].to_partition,
 			[4,3,2,1].to_partition
-		], [4,2,1].to_partition.set_plus_horizontal_strip_of_size(3)
+		].sort, [4,2,1].to_partition.set_plus_horizontal_strip_of_size(3).sort
+	end
+	def test_set_minus_horizontal_strip_of_size
+		assert_equal [[].to_partition], [3].to_partition.set_minus_horizontal_strip_of_size(3)
+		assert_equal [
+			[4,1].to_partition,
+			[3,2].to_partition,
+			[3,1,1].to_partition,
+			[2,2,1].to_partition
+		].sort, [4,2,1].to_partition.set_minus_horizontal_strip_of_size(2).sort
 	end
 	def test_set_plus_vertical_strip_of_size
 		assert_equal [[1,1,1].to_partition], [].to_partition.set_plus_vertical_strip_of_size(3)
@@ -54,6 +63,15 @@ class Tester < Test::Unit::TestCase
 			[5,2,2,1].to_partition,
 			[5,3,1,1].to_partition,
 			[5,3,2].to_partition
-		],[4,2,1].to_partition.set_plus_vertical_strip_of_size(3)
+		].sort,[4,2,1].to_partition.set_plus_vertical_strip_of_size(3).sort
+	end
+	def test_set_misus_vertical_strip_of_size
+		assert_equal [], [1,1,1].to_partition.set_minus_vertical_strip_of_size(4)
+		assert_equal [[].to_partition], [1,1,1].to_partition.set_minus_vertical_strip_of_size(3)
+		assert_equal [
+			[2,2].to_partition,
+			[2,1,1].to_partition,
+			[1,1,1,1].to_partition
+		].sort,[2,2,1,1].to_partition.set_minus_vertical_strip_of_size(2).sort
 	end
 end

@@ -75,38 +75,43 @@ class Partition < Composition
 
 
 	def set_plus_horizontal_strip_of_size(k)
-		if self.empty?
-			return [Partition.new([k])]
+				return self.transpose.set_plus_vertical_strip_of_size(k).map{|k| k.transpose}
+	end
+
+	def set_plus_vertical_strip_of_size(k,i=0)
+		return [self]	if k==0
+		temp=[]
+		for j in i..self.length
+			if j==0 or j==self.length or self[j-1]>self[j]
+				new_p=Partition.new(self)
+				new_p[j] = j==self.length ? 1 : new_p[j]+=1
+				temp.concat(new_p.set_plus_vertical_strip_of_size(k-1,j+1))
+			end
 		end
-		n=self.size
-		temp = []
-		Partition.set(n+k).each{ |par|
-			flag = true
-			unless par.length<=self.length+1 and par[0]>=self[0] then
-				flag=false
-			end
-			for i in 1..self.length do
-				if i == self.length then
-					unless par[i]==nil or par[i]<=self[i-1] then
-						flag = false
-					end
-				else
-					unless (par[i]!=nil) and par[i]>=self[i] and par[i]<=self[i-1] then
-						flag = false
-					end
-				end
-			end
-			if flag then
-				temp<<par
-			end
-		}
 		return temp
 	end
 
-	def set_plus_vertical_strip_of_size(k)
-		return self.transpose.set_plus_horizontal_strip_of_size(k).map{|k| k.transpose}
+	def set_minus_horizontal_strip_of_size(k)
+				return self.transpose.set_minus_vertical_strip_of_size(k).map{|k| k.transpose}
 	end
 
+	def set_minus_vertical_strip_of_size(k,i=0)
+		return [] if k > self.length
+		return [self]	if k==0
+		temp=[]
+		for j_ in i...self.length
+			j=self.length-j_-1
+			if j==self.length-1 or self[j]>self[j+1]
+				new_p=Partition.new(self)
+				if self[j]==1
+					new_p.pop
+					j_-=1
+				else
+					new_p[j] -=1
+				end
+				temp.concat(new_p.set_minus_vertical_strip_of_size(k-1,j_+1))
+			end
+		end
+		return temp
+	end
 end
-
-
